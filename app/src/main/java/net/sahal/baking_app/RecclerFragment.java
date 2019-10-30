@@ -1,6 +1,7 @@
 package net.sahal.baking_app;
 
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,20 +27,43 @@ public class RecclerFragment extends Fragment {
 
         RecyclerView RV = view.findViewById(R.id.Recycler_Fragment);
         RV.setLayoutManager(new LinearLayoutManager(getActivity()));
+        RV.setAdapter(new RecyclerViewAdapter());
 
         return view;
     }
 
     private class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        public CardView mcardView;
-        private TextView textView;
-        
-        public RecyclerViewHolder(@NonNull View itemView) {
+        private CardView mCardView;
+        private TextView mTextView;
+
+        public RecyclerViewHolder(View itemView) {
             super(itemView);
         }
 
         public RecyclerViewHolder (LayoutInflater inflater, ViewGroup container){
             super(inflater.inflate(R.layout.card_view, container, false));
+
+            mCardView = itemView.findViewById(R.id.card_container);
+            mTextView = itemView.findViewById(R.id.text_holder);
+        }
+    }
+
+    private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder>{
+
+        @Override
+        public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            return new RecyclerViewHolder(inflater, parent);
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return 5;
         }
     }
 }

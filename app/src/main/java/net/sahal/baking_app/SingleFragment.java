@@ -14,14 +14,14 @@ public abstract class SingleFragment extends AppCompatActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.Fragment_container);
 
-        if(fragment == null){
+        if (fragment == null) {
             fragment = createFragment();
             fm.beginTransaction()
                     .add(R.id.Fragment_container, fragment)
