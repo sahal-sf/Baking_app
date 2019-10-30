@@ -1,16 +1,15 @@
 package net.sahal.baking_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends SingleFragment {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        System.out.println("Hello World");
+    protected Fragment createFragment() {
+        return new RecclerFragment().newInstance();
     }
 }
