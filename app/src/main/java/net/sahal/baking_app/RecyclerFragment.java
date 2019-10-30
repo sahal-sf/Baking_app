@@ -1,5 +1,6 @@
 package net.sahal.baking_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,8 @@ public class RecyclerFragment extends Fragment {
         rView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(getActivity(), "Hi and Welcome", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity(), "Hi and Welcome", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), Sample.getSampleByID(getActivity(),1).getId()+ "", Toast.LENGTH_LONG).show();
             }
 
             @Override
