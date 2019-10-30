@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,54 +16,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerFragment extends Fragment {
 
+    private RecyclerView rView;
+
     public static Fragment newInstance() {
         return new RecyclerFragment();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recycler_view_fragment, container, false);
 
-        RecyclerView RV = view.findViewById(R.id.Recycler_Fragment);
-        RV.setLayoutManager(new LinearLayoutManager(getActivity()));
-        RV.setAdapter(new RecyclerViewAdapter());
+        rView = view.findViewById(R.id.Recycler_Fragment);
+        rView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rView.setAdapter(new BakingAdapter());
+        rView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getActivity(), "Hi and Welcome", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+            }
+        }));
 
         return view;
-    }
-
-    private class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        private CardView mCardView;
-        private TextView mTextView;
-
-        public RecyclerViewHolder(View itemView) {
-            super(itemView);
-        }
-
-        public RecyclerViewHolder(LayoutInflater inflater, ViewGroup container) {
-            super(inflater.inflate(R.layout.card_view, container, false));
-
-            mCardView = itemView.findViewById(R.id.card_container);
-            mTextView = itemView.findViewById(R.id.text_holder);
-        }
-    }
-
-    private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
-
-        @Override
-        public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater inflater = LayoutInflater.from(getActivity());
-            return new RecyclerViewHolder(inflater, parent);
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return 5;
-        }
     }
 }
