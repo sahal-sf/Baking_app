@@ -1,4 +1,4 @@
-package net.sahal.baking_app.Models;
+package net.sahal.baking_app.models;
 
 import java.util.ArrayList;
 

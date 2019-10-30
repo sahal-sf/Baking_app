@@ -1,4 +1,4 @@
-package net.sahal.baking_app.Models;
+package net.sahal.baking_app.models;
 
 public class Steps {
 
