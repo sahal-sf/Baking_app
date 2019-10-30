@@ -1,7 +1,6 @@
 package net.sahal.baking_app;
 
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecclerFragment extends Fragment {
 
-    public static Fragment newInstance(){
+    public static Fragment newInstance() {
         return new RecclerFragment();
     }
 
@@ -40,7 +39,7 @@ public class RecclerFragment extends Fragment {
             super(itemView);
         }
 
-        public RecyclerViewHolder (LayoutInflater inflater, ViewGroup container){
+        public RecyclerViewHolder(LayoutInflater inflater, ViewGroup container) {
             super(inflater.inflate(R.layout.card_view, container, false));
 
             mCardView = itemView.findViewById(R.id.card_container);
@@ -48,7 +47,7 @@ public class RecclerFragment extends Fragment {
         }
     }
 
-    private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder>{
+    private class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
 
         @Override
         public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
