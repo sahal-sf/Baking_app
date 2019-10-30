@@ -1,14 +1,17 @@
 package net.sahal.baking_app.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Ingredients {
 
     private int quantity;
     private String measure, ingredient;
 
-    public Ingredients(int quantity, String measure, String ingredient) {
-        this.quantity = quantity;
-        this.measure = measure;
-        this.ingredient = ingredient;
+    public Ingredients(JSONObject node) throws JSONException {
+        this.quantity = node.getInt("quantity");
+        this.measure = node.getString("measure");
+        this.ingredient = node.getString("ingredient");
     }
 
     public int getQuantity() {
