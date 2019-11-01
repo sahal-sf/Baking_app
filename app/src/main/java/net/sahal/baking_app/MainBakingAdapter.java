@@ -8,9 +8,14 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class BakingAdapter extends RecyclerView.Adapter<BakingAdapter.RecyclerViewHolder> {
+import net.sahal.baking_app.models.BakingList;
 
-    private BakingAdapter.RecyclerViewHolder myHolder = null;
+import java.util.ArrayList;
+
+public class MainBakingAdapter extends RecyclerView.Adapter<MainBakingAdapter.RecyclerViewHolder> {
+
+    private MainBakingAdapter.RecyclerViewHolder myHolder = null;
+    private ArrayList<BakingList> List;
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private CardView mCardView;
@@ -24,7 +29,8 @@ public class BakingAdapter extends RecyclerView.Adapter<BakingAdapter.RecyclerVi
         }
     }
 
-    public BakingAdapter() {
+    public MainBakingAdapter(ArrayList<BakingList> List) {
+        this.List = List;
     }
 
     @Override
@@ -36,11 +42,13 @@ public class BakingAdapter extends RecyclerView.Adapter<BakingAdapter.RecyclerVi
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         this.myHolder = holder;
+        BakingList baking = List.get(position);
+        holder.mTextView.setText(baking.getName());
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return List.size();
     }
 
     @Override
