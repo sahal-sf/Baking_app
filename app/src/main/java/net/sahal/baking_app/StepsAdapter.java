@@ -5,17 +5,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
 import net.sahal.baking_app.models.Steps;
 
 import java.util.ArrayList;
 
-public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.RecyclerViewHolder> {
+public class StepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private StepsAdapter.RecyclerViewHolder myHolder = null;
     private ArrayList<Steps> steps;
+
+
+    public class RecyclerMediaViewHolder extends RecyclerView.ViewHolder {
+        private CardView mCardView;
+        private SimpleExoPlayerView playerView;
+
+        public RecyclerMediaViewHolder(View view) {
+            super(view);
+
+            mCardView = itemView.findViewById(R.id.card_container);
+            playerView = itemView.findViewById(R.id.playerView);
+        }
+    }
 
     public class RecyclerTextViewHolder extends RecyclerView.ViewHolder {
         private CardView mCardView;
@@ -29,38 +44,50 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.RecyclerView
         }
     }
 
-    public class RecyclerMediaViewHolder extends RecyclerView.ViewHolder {
-        private CardView mCardView;
-        private TextView mTextView;
 
-        public RecyclerMediaViewHolder(View view) {
-            super(view);
-
-            mCardView = itemView.findViewById(R.id.card_container);
-            mTextView = itemView.findViewById(R.id.text_holder);
-        }
-    }
 
     public StepsAdapter(int position) {
         this.steps = MainActivity.List.get(position).getSteps();
     }
 
     @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view, parent, false);
-        return new RecyclerViewHolder(itemView);
-    }
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(viewType == 0){
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.media_card_view, parent, false);
+            return new RecyclerMediaViewHolder(itemView);
 
-    @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        this.myHolder = holder;
-        if(position == 0){
-            holder.mTextView.setText("Ingredients");
+        }else if(viewType == 1){
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view, parent, false);
+            return new RecyclerTextViewHolder(itemView);
+
+        }else if(viewType == 2){
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view, parent, false);
+            return new RecyclerTextViewHolder(itemView);
+
         }else{
-            Steps step = steps.get(position - 1);
-            holder.mTextView.setText(step.getShortDescription());
+            return null;
         }
     }
+
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()){
+
+            case 0:
+                RecyclerMediaViewHolder mediaView = (RecyclerMediaViewHolder) holder;
+                break;
+
+            case 1:
+                RecyclerTextViewHolder textView = (RecyclerTextViewHolder) holder;
+                break;
+
+            case 2:
+                RecyclerTextViewHolder navigationView = (RecyclerTextViewHolder) holder;
+                break;
+        }
+    }
+
 
     @Override
     public int getItemCount() {
@@ -77,7 +104,4 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.RecyclerView
         return position;
     }
 
-    public int getAdapterPosition() {
-        return myHolder != null ? myHolder.getAdapterPosition() : 0;
-    }
 }
