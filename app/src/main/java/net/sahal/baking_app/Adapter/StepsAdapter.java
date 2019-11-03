@@ -4,9 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,26 +27,8 @@ public class StepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public class RecyclerMediaViewHolder extends RecyclerView.ViewHolder {
 
-        public FrameLayout mediaContainer;
-        public ImageView mediaCoverImage, volumeControl;
-        public ProgressBar progressBar;
-        public RequestManager requestManager;
-        private View parent;
-
         public RecyclerMediaViewHolder(View view) {
             super(view);
-
-            parent = itemView;
-            mediaContainer = itemView.findViewById(R.id.mediaContainer);
-            mediaCoverImage = itemView.findViewById(R.id.ivMediaCoverImage);
-            progressBar = itemView.findViewById(R.id.progressBar);
-            volumeControl = itemView.findViewById(R.id.ivVolumeControl);
-        }
-
-        void onBind(Steps step, RequestManager requestManager) {
-            this.requestManager = requestManager;
-            parent.setTag(this);
-            this.requestManager.load(step.getVideoURL()).into(mediaCoverImage);
         }
     }
 
@@ -79,10 +58,9 @@ public class StepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    public StepsAdapter(int MainPosition, int stepPosition, RequestManager requestManager) {
+    public StepsAdapter(int MainPosition, int stepPosition) {
         this.steps = MainActivity.List.get(MainPosition).getSteps();
         this.stepPosition = stepPosition;
-        this.requestManager = requestManager;
     }
 
     @Override
@@ -111,7 +89,6 @@ public class StepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             case 0:
                 RecyclerMediaViewHolder mediaView = (RecyclerMediaViewHolder) holder;
-                mediaView.onBind(steps.get(stepPosition), requestManager);
                 break;
 
             case 1:

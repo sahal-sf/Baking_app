@@ -2,6 +2,8 @@ package net.sahal.baking_app;
 
 import androidx.fragment.app.Fragment;
 
+import net.sahal.baking_app.Fragment.MainBakingFragment;
+import net.sahal.baking_app.Fragment.MainFragment;
 import net.sahal.baking_app.models.BakingList;
 
 import org.json.JSONArray;

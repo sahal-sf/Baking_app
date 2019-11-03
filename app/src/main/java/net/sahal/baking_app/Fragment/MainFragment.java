@@ -1,4 +1,4 @@
-package net.sahal.baking_app;
+package net.sahal.baking_app.Fragment;
 
 import android.os.Bundle;
 
@@ -6,6 +6,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
+import net.sahal.baking_app.R;
 
 public abstract class MainFragment extends AppCompatActivity {
     protected abstract Fragment createFragment();

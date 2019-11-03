@@ -1,4 +1,4 @@
-package net.sahal.baking_app;
+package net.sahal.baking_app.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.sahal.baking_app.Adapter.IngredientStepsAdapter;
+import net.sahal.baking_app.R;
+import net.sahal.baking_app.RecyclerItemClickListener;
 import net.sahal.baking_app.models.StepsFragment;
 
 public class IngredientStepsFragment extends Fragment {
