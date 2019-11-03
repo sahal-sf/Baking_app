@@ -32,7 +32,6 @@ public class IngredientStepsFragment extends Fragment {
         rView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
                 if (position == 0) {
 
                 } else {
