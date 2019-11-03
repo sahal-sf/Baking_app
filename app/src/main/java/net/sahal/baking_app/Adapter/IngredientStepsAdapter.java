@@ -1,4 +1,4 @@
-package net.sahal.baking_app;
+package net.sahal.baking_app.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,8 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import net.sahal.baking_app.models.BakingList;
+import net.sahal.baking_app.MainActivity;
+import net.sahal.baking_app.R;
 import net.sahal.baking_app.models.Ingredients;
 import net.sahal.baking_app.models.Steps;
 

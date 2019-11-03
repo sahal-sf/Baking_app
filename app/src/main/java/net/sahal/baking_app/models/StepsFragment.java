@@ -1,4 +1,4 @@
-package net.sahal.baking_app;
+package net.sahal.baking_app.models;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,20 +9,23 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import net.sahal.baking_app.Adapter.IngredientStepsAdapter;
-import net.sahal.baking_app.models.StepsFragment;
+import net.sahal.baking_app.R;
+import net.sahal.baking_app.RecyclerItemClickListener;
+import net.sahal.baking_app.Adapter.StepsAdapter;
 
-public class IngredientStepsFragment extends Fragment {
+public class StepsFragment extends Fragment {
 
     private RecyclerView rView;
-    private int id;
+    private int MainPosition;
+    private int stepPosition;
 
-    public static Fragment newInstance(int id) {
-        return new IngredientStepsFragment(id);
+    public static Fragment newInstance(int MainPosition, int stepPosition) {
+        return new StepsFragment(MainPosition, stepPosition);
     }
 
-    public IngredientStepsFragment(int id) {
-        this.id = id;
+    public StepsFragment(int MainPosition, int stepPosition) {
+        this.MainPosition = MainPosition;
+        this.stepPosition = stepPosition;
     }
 
     @Override
@@ -31,20 +34,10 @@ public class IngredientStepsFragment extends Fragment {
 
         rView = view.findViewById(R.id.Recycler_Fragment);
         rView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rView.setAdapter(new IngredientStepsAdapter(id));
+        rView.setAdapter(new StepsAdapter(MainPosition, stepPosition));
         rView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), rView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                if (position == 0) {
-
-                } else {
-                    position -= 1;
-                    Fragment fragment = StepsFragment.newInstance(id, position);
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.Fragment_container, fragment)
-                            .addToBackStack(null)
-                            .commit();
-                }
             }
 
             @Override
@@ -54,4 +47,3 @@ public class IngredientStepsFragment extends Fragment {
         return view;
     }
 }
-

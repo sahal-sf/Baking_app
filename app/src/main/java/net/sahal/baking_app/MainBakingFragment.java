@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import net.sahal.baking_app.Adapter.MainBakingAdapter;
+
 
 public class MainBakingFragment extends Fragment {
 
