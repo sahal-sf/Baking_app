@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import net.sahal.baking_app.Adapter.MainBakingAdapter;
 import net.sahal.baking_app.MainActivity;
 import net.sahal.baking_app.R;
-import net.sahal.baking_app.RecyclerItemClickListener;
+import net.sahal.baking_app.Adapter.RecyclerItemClickListener;
 
 
 public class MainBakingFragment extends Fragment {

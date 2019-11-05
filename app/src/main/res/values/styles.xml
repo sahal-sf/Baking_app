@@ -8,4 +8,24 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ExoMediaButton.Previous">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ExoMediaButton.Next">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ExoMediaButton.Rewind">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ExoMediaButton.FastForward">
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ExoMediaButton.Close">
+        <item name="android:visibility">gone</item>
+    </style>
+
 </resources>

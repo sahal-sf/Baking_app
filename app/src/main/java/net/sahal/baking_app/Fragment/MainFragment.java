@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import net.sahal.baking_app.Adapter.StepsAdapter;
 import net.sahal.baking_app.R;
 
 public abstract class MainFragment extends AppCompatActivity {
@@ -28,10 +29,11 @@ public abstract class MainFragment extends AppCompatActivity {
 
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() == 0) {
-            // add information msg to exit
             super.onBackPressed();
+            StepsAdapter.releasePlayer();
         } else {
             getFragmentManager().popBackStack();
+            StepsAdapter.releasePlayer();
         }
     }
 }

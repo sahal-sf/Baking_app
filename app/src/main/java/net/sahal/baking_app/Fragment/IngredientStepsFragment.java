@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.sahal.baking_app.Adapter.IngredientStepsAdapter;
 import net.sahal.baking_app.R;
-import net.sahal.baking_app.RecyclerItemClickListener;
-import net.sahal.baking_app.models.StepsFragment;
+import net.sahal.baking_app.Adapter.RecyclerItemClickListener;
 
 public class IngredientStepsFragment extends Fragment {
 

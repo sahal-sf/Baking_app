@@ -1,4 +1,4 @@
-package net.sahal.baking_app;
+package net.sahal.baking_app.Adapter;
 
 import android.content.Context;
 import android.view.GestureDetector;
