@@ -37,6 +37,11 @@ public class IngredientStepsFragment extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
                 if (position == 0) {
+                    Fragment fragment = IngredientFragment.newInstance(id);
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.Fragment_container, fragment)
+                            .addToBackStack(null)
+                            .commit();
 
                 } else {
                     position -= 1;

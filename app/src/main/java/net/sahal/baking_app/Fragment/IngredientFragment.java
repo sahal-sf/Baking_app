@@ -9,23 +9,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import net.sahal.baking_app.Adapter.IngredientAdapter;
 import net.sahal.baking_app.R;
-import net.sahal.baking_app.Adapter.RecyclerItemClickListener;
-import net.sahal.baking_app.Adapter.StepsAdapter;
 
-public class StepsFragment extends Fragment {
+public class IngredientFragment extends Fragment {
 
     private RecyclerView rView;
     private int MainPosition;
-    private int stepPosition;
 
-    public static Fragment newInstance(int MainPosition, int stepPosition) {
-        return new StepsFragment(MainPosition, stepPosition);
+    public static Fragment newInstance(int MainPosition) {
+        return new IngredientFragment(MainPosition);
     }
 
-    public StepsFragment(int MainPosition, int stepPosition) {
+    public IngredientFragment(int MainPosition) {
         this.MainPosition = MainPosition;
-        this.stepPosition = stepPosition;
     }
 
     @Override
@@ -34,7 +31,7 @@ public class StepsFragment extends Fragment {
 
         rView = view.findViewById(R.id.Recycler_Fragment);
         rView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rView.setAdapter(new StepsAdapter(MainPosition, stepPosition, this));
+        rView.setAdapter(new IngredientAdapter(MainPosition));
         return view;
     }
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -23,9 +24,11 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import net.sahal.baking_app.Fragment.StepsFragment;
 import net.sahal.baking_app.MainActivity;
 import net.sahal.baking_app.R;
 import net.sahal.baking_app.models.Steps;
+import net.sahal.baking_app.models.Video;
 
 import java.util.ArrayList;
 
@@ -33,18 +36,22 @@ public class StepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private ArrayList<Steps> steps;
     private int stepPosition;
+    private int MainPosition;
+    private Fragment mainFragment;
 
     public class RecyclerMediaViewHolder extends RecyclerView.ViewHolder {
 
         public PlayerView mExoPlayer;
         public ProgressBar bar;
         public RelativeLayout layout;
+        public TextView textView;
 
         public RecyclerMediaViewHolder(View itemView) {
             super(itemView);
             mExoPlayer = itemView.findViewById(R.id.player);
             bar = itemView.findViewById(R.id.spinnerVideoDetails);
             layout = itemView.findViewById(R.id.layout);
+            textView = itemView.findViewById(R.id.text_holder);
         }
     }
 
@@ -74,9 +81,11 @@ public class StepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    public StepsAdapter(int MainPosition, int stepPosition) {
+    public StepsAdapter(int MainPosition, int stepPosition, Fragment fragment) {
         this.steps = MainActivity.List.get(MainPosition).getSteps();
         this.stepPosition = stepPosition;
+        this.MainPosition = MainPosition;
+        this.mainFragment = fragment;
     }
 
     @Override
@@ -110,62 +119,101 @@ public class StepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 break;
 
             case 2:
-                RecyclerNavigationViewHolder navigationView = (RecyclerNavigationViewHolder) holder;
-                if (stepPosition + 1 >= steps.size()) {
-                    navigationView.mNext.setVisibility(View.INVISIBLE);
-                    navigationView.mPrevious.setVisibility(View.VISIBLE);
-
-                } else if (stepPosition - 1 < 0) {
-                    navigationView.mNext.setVisibility(View.VISIBLE);
-                    navigationView.mPrevious.setVisibility(View.INVISIBLE);
-                } else {
-                    navigationView.mNext.setVisibility(View.VISIBLE);
-                    navigationView.mPrevious.setVisibility(View.VISIBLE);
-                }
+                Navigation((RecyclerNavigationViewHolder) holder);
                 break;
         }
     }
 
-    private void initPlayer(final RecyclerView.ViewHolder holder) {
-        final StepsAdapter.RecyclerMediaViewHolder mediaHolder = (StepsAdapter.RecyclerMediaViewHolder) holder;
-        steps.get(stepPosition).getVideo().setPlayer(ExoPlayerFactory.newSimpleInstance(steps.get(stepPosition).getVideo().getContext()), mediaHolder);
+    private void Navigation(RecyclerNavigationViewHolder navigationView) {
+        if (stepPosition + 1 >= steps.size()) {
+            navigationView.mNext.setVisibility(View.INVISIBLE);
+            navigationView.mPrevious.setVisibility(View.VISIBLE);
 
-
-
-        mediaHolder.mExoPlayer.setPlayer(steps.get(stepPosition).getVideo().getPlayer());
-        mediaHolder.mExoPlayer.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT);
-
-        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(
-                steps.get(stepPosition).getVideo().getContext(), Util.getUserAgent(steps.get(stepPosition).getVideo().getContext(),
-                steps.get(stepPosition).getVideo().getContext().getString(R.string.app_name)));
-        MediaSource videoSource = new ProgressiveMediaSource.Factory(
-                dataSourceFactory).createMediaSource(Uri.parse(steps.get(stepPosition).getVideo().getUrl()));
-
-        steps.get(stepPosition).getVideo().getPlayer().prepare(videoSource, true, true);
-        steps.get(stepPosition).getVideo().getPlayer().setPlayWhenReady(true);
-        steps.get(stepPosition).getVideo().getPlayer().seekTo(0);
-        steps.get(stepPosition).getVideo().getPlayer().addListener(new Player.EventListener() {
+        } else if (stepPosition - 1 < 0) {
+            navigationView.mNext.setVisibility(View.VISIBLE);
+            navigationView.mPrevious.setVisibility(View.INVISIBLE);
+        } else {
+            navigationView.mNext.setVisibility(View.VISIBLE);
+            navigationView.mPrevious.setVisibility(View.VISIBLE);
+        }
+        navigationView.mNext.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onLoadingChanged(boolean isLoading) {
-            }
+            public void onClick(View v) {
+                if (stepPosition + 1 < steps.size()) {
+                    Video.Release();
+                    Fragment fragment = StepsFragment.newInstance(MainPosition, (stepPosition + 1));
+                    mainFragment.getFragmentManager().beginTransaction()
+                            .replace(R.id.Fragment_container, fragment)
+                            .addToBackStack(null)
+                            .commit();
 
-            @Override
-            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-                switch (playbackState) {
-                    case Player.STATE_READY:
-                        mediaHolder.bar.setVisibility(View.GONE);
-                        steps.get(stepPosition).getVideo().getPlayer().setPlayWhenReady(true);
-                        break;
-                    case Player.STATE_BUFFERING:
-                        mediaHolder.bar.setVisibility(View.VISIBLE);
-                        steps.get(stepPosition).getVideo().getPlayer().seekTo(0);
-                        break;
-                    case Player.STATE_IDLE:
-                        steps.get(stepPosition).getVideo().getPlayer().retry();
-                        break;
                 }
             }
         });
+        navigationView.mPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (stepPosition - 1 <= 0) {
+                    Video.Release();
+                    Fragment fragment = StepsFragment.newInstance(MainPosition, (stepPosition - 1));
+                    mainFragment.getFragmentManager().beginTransaction()
+                            .replace(R.id.Fragment_container, fragment)
+                            .addToBackStack(null)
+                            .commit();
+
+                }
+            }
+        });
+    }
+
+    private void initPlayer(final RecyclerView.ViewHolder holder) {
+        final StepsAdapter.RecyclerMediaViewHolder mediaHolder = (StepsAdapter.RecyclerMediaViewHolder) holder;
+
+        if (!steps.get(stepPosition).getVideo().getUrl().isEmpty()) {
+
+            mediaHolder.textView.setVisibility(View.GONE);
+
+            steps.get(stepPosition).getVideo().setPlayer(ExoPlayerFactory.newSimpleInstance(steps.get(stepPosition).getVideo().getContext()), mediaHolder);
+
+            mediaHolder.mExoPlayer.setPlayer(steps.get(stepPosition).getVideo().getPlayer());
+            mediaHolder.mExoPlayer.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIXED_HEIGHT);
+
+            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(
+                    steps.get(stepPosition).getVideo().getContext(), Util.getUserAgent(steps.get(stepPosition).getVideo().getContext(),
+                    steps.get(stepPosition).getVideo().getContext().getString(R.string.app_name)));
+            MediaSource videoSource = new ProgressiveMediaSource.Factory(
+                    dataSourceFactory).createMediaSource(Uri.parse(steps.get(stepPosition).getVideo().getUrl()));
+
+            steps.get(stepPosition).getVideo().getPlayer().prepare(videoSource, true, true);
+            steps.get(stepPosition).getVideo().getPlayer().setPlayWhenReady(true);
+            steps.get(stepPosition).getVideo().getPlayer().seekTo(0);
+            steps.get(stepPosition).getVideo().getPlayer().addListener(new Player.EventListener() {
+                @Override
+                public void onLoadingChanged(boolean isLoading) {
+                }
+
+                @Override
+                public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+                    switch (playbackState) {
+                        case Player.STATE_READY:
+                            mediaHolder.bar.setVisibility(View.GONE);
+                            steps.get(stepPosition).getVideo().getPlayer().setPlayWhenReady(true);
+                            break;
+                        case Player.STATE_BUFFERING:
+                            mediaHolder.bar.setVisibility(View.VISIBLE);
+                            steps.get(stepPosition).getVideo().getPlayer().seekTo(0);
+                            break;
+                        case Player.STATE_IDLE:
+                            steps.get(stepPosition).getVideo().getPlayer().retry();
+                            break;
+                    }
+                }
+            });
+        } else {
+            mediaHolder.bar.setVisibility(View.GONE);
+            mediaHolder.mExoPlayer.setVisibility(View.GONE);
+            mediaHolder.textView.setText("Sorry No Video");
+        }
     }
 
     @Override

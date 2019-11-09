@@ -27,7 +27,6 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
 
         public RecyclerViewHolder(View view) {
             super(view);
-
             mCardView = itemView.findViewById(R.id.card_container);
             mTextView = itemView.findViewById(R.id.text_holder);
         }
@@ -68,9 +67,5 @@ public class IngredientStepsAdapter extends RecyclerView.Adapter<IngredientSteps
     @Override
     public int getItemViewType(int position) {
         return position;
-    }
-
-    public int getAdapterPosition() {
-        return myHolder != null ? myHolder.getAdapterPosition() : 0;
     }
 }
