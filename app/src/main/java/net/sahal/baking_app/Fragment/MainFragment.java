@@ -7,15 +7,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import net.sahal.baking_app.Adapter.StepsAdapter;
 import net.sahal.baking_app.R;
+import net.sahal.baking_app.models.Video;
 
 public abstract class MainFragment extends AppCompatActivity {
     protected abstract Fragment createFragment();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(null);
         setContentView(R.layout.activity_main);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -30,10 +30,9 @@ public abstract class MainFragment extends AppCompatActivity {
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() == 0) {
             super.onBackPressed();
-            StepsAdapter.releasePlayer();
         } else {
             getFragmentManager().popBackStack();
-            StepsAdapter.releasePlayer();
         }
+        Video.Release();
     }
 }

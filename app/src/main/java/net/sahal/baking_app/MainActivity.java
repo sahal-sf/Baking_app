@@ -34,7 +34,7 @@ public class MainActivity extends MainFragment {
             this.List = new ArrayList<>();
             if (jsonArray != null) {
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    List.add(new BakingList(jsonArray.getJSONObject(i)));
+                    List.add(new BakingList(this, jsonArray.getJSONObject(i)));
                 }
             }
         } catch (IOException e) {

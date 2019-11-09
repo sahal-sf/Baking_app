@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    app:cardElevation="8dp"
-    app:cardCornerRadius="4dp">
+    app:cardCornerRadius="4dp"
+    app:cardElevation="8dp">
 
 
     <LinearLayout
@@ -16,26 +16,26 @@
         android:weightSum="1">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
             android:id="@+id/card_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:elevation="10dp"
             card_view:cardCornerRadius="5dp">
 
 
-    <TextView
-        android:id="@+id/text_holder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:hint="hi"
-        android:textSize="14dp"/>
+            <TextView
+                android:id="@+id/text_holder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="hi"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="14dp" />
 
         </androidx.cardview.widget.CardView>
-</LinearLayout>
+    </LinearLayout>
 </LinearLayout>

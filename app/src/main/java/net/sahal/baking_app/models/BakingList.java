@@ -1,5 +1,7 @@
 package net.sahal.baking_app.models;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +15,8 @@ public class BakingList {
     private ArrayList<Ingredients> ingredients;
     private ArrayList<Steps> steps;
 
-    public BakingList(JSONObject node) throws JSONException {
+
+    public BakingList(AppCompatActivity activity, JSONObject node) throws JSONException {
         this.id = node.getInt("id");
         this.servings = node.getInt("servings");
         this.name = node.getString("name");
@@ -31,7 +34,7 @@ public class BakingList {
         JSONArray stepsJson = node.getJSONArray("steps");
         if (stepsJson != null) {
             for (int i = 0; i < stepsJson.length(); i++) {
-                steps.add(new Steps(stepsJson.getJSONObject(i)));
+                steps.add(new Steps(activity, stepsJson.getJSONObject(i)));
             }
         }
     }
