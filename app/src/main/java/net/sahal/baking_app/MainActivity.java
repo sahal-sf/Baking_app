@@ -20,7 +20,7 @@ public class MainActivity extends MainFragment {
     @Override
     protected Fragment createFragment() {
         readJson("baking.json");
-        return new MainBakingFragment().newInstance();
+        return new MainBakingFragment(this).newInstance(this);
     }
 
     public void readJson(String jsonFile) {

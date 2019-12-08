@@ -38,6 +38,7 @@ public class StepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private int stepPosition;
     private int MainPosition;
     private Fragment mainFragment;
+    private int size;
 
     public class RecyclerMediaViewHolder extends RecyclerView.ViewHolder {
 
@@ -81,11 +82,12 @@ public class StepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    public StepsAdapter(int MainPosition, int stepPosition, Fragment fragment) {
+    public StepsAdapter(int MainPosition, int stepPosition, Fragment fragment, int size) {
         this.steps = MainActivity.List.get(MainPosition).getSteps();
         this.stepPosition = stepPosition;
         this.MainPosition = MainPosition;
         this.mainFragment = fragment;
+        this.size = size;
     }
 
     @Override
@@ -141,7 +143,7 @@ public class StepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             public void onClick(View v) {
                 if (stepPosition + 1 < steps.size()) {
                     Video.Release();
-                    Fragment fragment = StepsFragment.newInstance(MainPosition, (stepPosition + 1));
+                    Fragment fragment = StepsFragment.newInstance(MainPosition, (stepPosition + 1),size);
                     mainFragment.getFragmentManager().beginTransaction()
                             .replace(R.id.Fragment_container, fragment)
                             .addToBackStack(null)
@@ -155,7 +157,7 @@ public class StepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             public void onClick(View v) {
                 if (stepPosition - 1 <= 0) {
                     Video.Release();
-                    Fragment fragment = StepsFragment.newInstance(MainPosition, (stepPosition - 1));
+                    Fragment fragment = StepsFragment.newInstance(MainPosition, (stepPosition - 1), size);
                     mainFragment.getFragmentManager().beginTransaction()
                             .replace(R.id.Fragment_container, fragment)
                             .addToBackStack(null)
@@ -218,7 +220,7 @@ public class StepsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return 3;
+        return size;
     }
 
     @Override
