@@ -5,16 +5,16 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.widget.RemoteViews;
 
-import net.sahal.baking_app.MainActivity;
+import net.sahal.baking_app.Activity.MainActivity;
 import net.sahal.baking_app.R;
 import net.sahal.baking_app.models.BakingList;
 import net.sahal.baking_app.models.Ingredients;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class BakingWidget extends AppWidgetProvider {
 
-    private static final ArrayList<BakingList> List = MainActivity.List;
+    private static final List<BakingList> List = MainActivity.List;
     private static int position;
     private static String result = "";
 
@@ -23,7 +23,7 @@ public class BakingWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_widget);
 
         if (position > -1) {
-            ArrayList<Ingredients> ingredient = List.get(position).getIngredients();
+            List<Ingredients> ingredient = List.get(position).getIngredients();
 
             for (int i = 0; i < ingredient.size(); i++) {
                 result += " " + (i + 1) + " - " + ingredient.get(i).getQuantity() + " " +

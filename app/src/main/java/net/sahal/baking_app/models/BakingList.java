@@ -1,42 +1,22 @@
 package net.sahal.baking_app.models;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BakingList {
+public class BakingList implements Serializable {
 
     private int id, servings;
     private String name, image;
     private ArrayList<Ingredients> ingredients;
     private ArrayList<Steps> steps;
 
-
-    public BakingList(AppCompatActivity activity, JSONObject node) throws JSONException {
-        this.id = node.getInt("id");
-        this.servings = node.getInt("servings");
-        this.name = node.getString("name");
-        this.image = node.getString("image");
-
-        this.ingredients = new ArrayList<>();
-        JSONArray ingredientsJson = node.getJSONArray("ingredients");
-        if (ingredientsJson != null) {
-            for (int i = 0; i < ingredientsJson.length(); i++) {
-                ingredients.add(new Ingredients(ingredientsJson.getJSONObject(i)));
-            }
-        }
-
-        this.steps = new ArrayList<>();
-        JSONArray stepsJson = node.getJSONArray("steps");
-        if (stepsJson != null) {
-            for (int i = 0; i < stepsJson.length(); i++) {
-                steps.add(new Steps(activity, stepsJson.getJSONObject(i)));
-            }
-        }
+    public BakingList(int id, int servings, String name, String image, ArrayList<Ingredients> ingredients, ArrayList<Steps> steps){
+        this.id = id;
+        this.servings = servings;
+        this.name = name;
+        this.image = image;
+        this.ingredients = ingredients;
+        this.steps = steps;
     }
 
     public int getId() {

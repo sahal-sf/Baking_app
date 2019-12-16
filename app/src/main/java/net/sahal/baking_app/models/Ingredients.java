@@ -1,20 +1,19 @@
 package net.sahal.baking_app.models;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.io.Serializable;
 
-public class Ingredients {
+public class Ingredients implements Serializable {
 
-    private int quantity;
+    private double quantity;
     private String measure, ingredient;
 
-    public Ingredients(JSONObject node) throws JSONException {
-        this.quantity = node.getInt("quantity");
-        this.measure = node.getString("measure");
-        this.ingredient = node.getString("ingredient");
+    public Ingredients(int quantity, String measure, String ingredient){
+        this.quantity = quantity;
+        this.measure = measure;
+        this.ingredient = ingredient;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 

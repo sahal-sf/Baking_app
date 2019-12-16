@@ -1,24 +1,18 @@
 package net.sahal.baking_app.models;
 
-import androidx.appcompat.app.AppCompatActivity;
+import java.io.Serializable;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-public class Steps {
+public class Steps implements Serializable {
 
     private int id;
     private String shortDescription, description, videoURL, thumbnailURL;
-    private Video video;
 
-    public Steps(AppCompatActivity activity, JSONObject node) throws JSONException {
-        this.id = node.getInt("id");
-        this.shortDescription = node.getString("shortDescription");
-        this.description = node.getString("description");
-        this.videoURL = node.getString("videoURL");
-        this.thumbnailURL = node.getString("thumbnailURL");
-
-        this.video = new Video(videoURL, activity);
+    public Steps(int id, String shortDescription, String description, String videoURL, String thumbnailURL) {
+        this.id = id;
+        this.shortDescription = shortDescription;
+        this.description = description;
+        this.videoURL = videoURL;
+        this.thumbnailURL = thumbnailURL;
     }
 
     public int getId() {
@@ -33,8 +27,8 @@ public class Steps {
         return description;
     }
 
-    public Video getVideo() {
-        return video;
+    public String getVideoURL(){
+        return videoURL;
     }
 
     public String getThumbnailURL() {

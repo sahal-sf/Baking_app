@@ -5,19 +5,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import net.sahal.baking_app.MainActivity;
 import net.sahal.baking_app.R;
 import net.sahal.baking_app.models.Ingredients;
 
 import java.util.ArrayList;
 
-public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.RecyclerIngredientViewHolder> {
+public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.RecyclerIngredientViewHolder> {
 
     private ArrayList<Ingredients> ingredient;
+    public IngredientsAdapter.RecyclerIngredientViewHolder myHolder = null;
 
     public class RecyclerIngredientViewHolder extends RecyclerView.ViewHolder {
 
@@ -33,18 +31,19 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Re
         }
     }
 
-    public IngredientAdapter(int MainPosition) {
-        this.ingredient = MainActivity.List.get(MainPosition).getIngredients();
+    public IngredientsAdapter(ArrayList<Ingredients> ingredient) {
+        this.ingredient = ingredient;
     }
 
     @Override
     public RecyclerIngredientViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_view, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_info_detail_ingr_view, parent, false);
         return new RecyclerIngredientViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerIngredientViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerIngredientViewHolder holder, int position) {
+        this.myHolder = holder;
         holder.quantityView.setText(ingredient.get(position).getQuantity() + "");
         holder.measureView.setText(ingredient.get(position).getMeasure());
         holder.ingredientView.setText(ingredient.get(position).getIngredient());
@@ -63,5 +62,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.Re
     @Override
     public int getItemViewType(int position) {
         return position;
+    }
+
+    public int getAdapterPosition() {
+        return myHolder != null ? myHolder.getAdapterPosition() : 0;
     }
 }

@@ -10,17 +10,17 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import net.sahal.baking_app.MainActivity;
+import net.sahal.baking_app.Activity.MainActivity;
 import net.sahal.baking_app.R;
 import net.sahal.baking_app.models.BakingList;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class BakingWidgetConfigureActivity extends Activity {
 
     private static final String PREFS_NAME = "net.sahal.baking_app.Widget.BakingWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
-    private final ArrayList<BakingList> List = MainActivity.List;
+    private final List<BakingList> List = MainActivity.List;
     private int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     private RadioGroup radioGroup;
 
